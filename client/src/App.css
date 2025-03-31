@@ -1,42 +1,82 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.App {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+.login-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.Title {
+  margin-top: 20px;
+  position: flex;
+  top: 10px;
+
+}
+.App-logo {
+  position: absolute;
+  height: 40vmin;
+  pointer-events: none;
+  left: 10px; 
+  top: 10px;
+  margin-top: 50px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-button {
+  background-color: limegreen; /* Lime green color */
+  border: none;
+  width: 100px; /* Square shape */
+  height: 50px; /* Square shape */
+  font-size: 16px;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.App-link {
+  color: #61dafb;
+  
+}
+
+.Links {
+  color: DodgerBlue;
+}
+
+@media (max-width: 768px) { /* Adjust breakpoint as necessary */
+  .App-header {
+    min-height: 150vh; /* Example to adjust based on content size */
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
