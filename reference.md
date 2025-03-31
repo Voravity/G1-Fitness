@@ -5,7 +5,6 @@ client/
 ├── src/                    # Source folder for React frontend
 │   ├── assets/             # Images, icons, etc.
 │   ├── components/         # Reusable UI components (Navbar, Button, etc.)
-│   ├── context/            # React Context for global state management
 │   ├── pages/              # Main route-based pages (Home, About, Login, etc.)
 │   ├── App.css             # Global styles for the app
 │   ├── App.jsx             # Root component that includes layout and routing

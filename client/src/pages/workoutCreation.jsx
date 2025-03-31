@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-//import "css sheet"; 
 import "../App.css";
+import "../styles/workoutCreation.css";
 
 
 function WorkoutCreation() {
@@ -42,8 +42,8 @@ function WorkoutCreation() {
   };
 
   return (
-    <div className="createworkout">
-        <h1 className="Tit">Workout Creation</h1>
+    <div className="create-container">
+        <h1 className="tittle">Workout Creation</h1>
         <Link to="/">
           <button className="nav-button">Home</button>
         </Link>
@@ -55,7 +55,7 @@ function WorkoutCreation() {
         </button>
       )}
 
-      {/* content appears after clicking workout buttn */}
+      {/* content appears after clicking workout button */}
       {isWorkoutCreated && (
         <div className="content-container show">
           {/* workout name input */}

@@ -1,15 +1,20 @@
 import { Link } from "react-router-dom";
 import "../App.css";
+import "../styles/journal.css";
+
 
 function Journal() {
   return (
+    <div className="journal-container">
+      <h1 className="title">Journal</h1>
+      <hr className="divider" />
 
-    <div className="App-header">
-      <div className="Title"><h1>Journal</h1></div>
-      <p>Here you can find different workouts for your fitness journey.</p>
-            
+      <p className="journal-description">
+        Here you can log, track, and review your workouts and nutrition as you continue your fitness journey.
+      </p>
+
       <Link to="/">
-        <button className="nav-button">Home</button>
+        <button className="nav-button">Return Home</button>
       </Link>
     </div>
   );

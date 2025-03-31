@@ -15,24 +15,19 @@ import "./App.css";
 
 function HomePage() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="logo-container">
-          <div className="button-group">
-            <Link to="/WorkoutLibrary"><button className="nav-button">Workout Library</button></Link>   
-            <Link to="/WorkoutCreation"><button className="nav-button">Create a workout</button></Link>      
-            <Link to="/Journal"><button className="nav-button">Journal</button></Link>
-            <Link to="/AboutUs"><button className="nav-button">About us</button></Link>
-            <Link to="/Login"><button className="nav-button">Sign in</button></Link>
-            
-          </div>
-        </div>
-        
-        <img src={logo} className="App-logo" alt="logo" />
-        
-        <div className="Title"><h1>Welcome to G1 Fitness</h1></div>
-          
-      </header>
+    <div>
+      <nav id="desktop-nav">
+      <img src={logo} className="app-logo" alt="logo"/>  
+        <div className="button-group">
+          <Link to="/workout-library"><button className="nav-button">Workout Library</button></Link>   
+          <Link to="/workout-creation"><button className="nav-button">Create a workout</button></Link>      
+          <Link to="/journal"><button className="nav-button">Journal</button></Link>
+          <Link to="/about-us"><button className="nav-button">About us</button></Link>
+          <Link to="/login"><button className="nav-button">Sign in</button></Link>
+        </div>            
+      </nav>
+      <div className="background"></div>
+      <div className="home-title">Welcome to G1 Fitness</div>
     </div>
   );
 }
