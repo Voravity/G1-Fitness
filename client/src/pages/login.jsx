@@ -1,69 +1,46 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../assets/G1Logo.png";
+import google from "../assets/google.png";
+import facebook from "../assets/facebook.png";
+import github from "../assets/github.png";
+
 import "../App.css";
-//import "./Authentication.css";
-import Signup from "./signup";
-import logo from "../assets/G1Logo.png"; 
+import "../styles/login.css";
 
 
 function Login() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+  const handleOAuthLogin = (provider) => {
+    // Open link to authenticator in new tabs
+    window.open(`http://localhost:8080/auth/${provider}`, "_blank","noopener,noreferrer");
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Login Attempt:", { username, password });
-    };
+  return (
+    <div className="login-container">
+      <div className="auth-box">
+        <h1 className="auth-title">Sign In or Sign Up</h1>
+        <p className="auth-header">Use one of your existing accounts:</p>
 
-    return (
-        <div className="login-header">
-          <div className="auth-box">
-            <h1 className="auth-title">Sign In</h1>
-            <p className="auth-header">Please enter your credentials to sign in.</p>
-            
-            <button className="auth-button">Sign In with Google</button>
-            <button className="auth-button">Sign In with Apple</button>
-            
-            <hr /> 
+        <button className="auth-button" onClick={() => handleOAuthLogin("google")}>
+          <img src={google} alt="Google" />
+          Continue with Google
+        </button>
+        <button className="auth-button" onClick={() => handleOAuthLogin("facebook")}>
+          <img src={facebook} alt="Facebook" />
+          Continue with Facebook
+        </button>
+        <button className="auth-button" onClick={() => handleOAuthLogin("github")}>
+          <img src={github} alt="GitHub" />
+          Continue with GitHub
+        </button>
 
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label className="auth-text">Username:</label>
-                <input
-                  className="auth-input"
-                  type="text"
-                  placeholder="Enter username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                />
-              </div>
+        <Link to="/">
+          <button className="nav-button">Back Home</button>
+        </Link>
+      </div>
 
-              <div>
-                <label className="auth-text">Password:</label>
-                <input
-                  className="auth-input"
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-    
-              <button type="submit" className="auth-button">Sign In</button>
-            </form>
-
-            <p><Link className="Links" to="#">Forgot password?</Link></p>
-            <p style = {{fontSize: '18px'}}>New User? <Link className="Links" to="/Signup">Sign Up</Link>
-            </p>
-            <Link to="/">
-              <button className="nav-button">Home</button>
-            </Link>
-          </div>
-          <img className="logo" src={logo} alt="G1 Fitness Logo" />
-        </div>
-    );
+      <img className="logo" src={logo} alt="G1 Fitness Logo" />
+    </div>
+  );
 }
 
 export default Login;

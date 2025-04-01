@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 import logo from "./assets/G1Logo.png";
 import WorkoutLibrary from "./pages/workoutLibrary"; 
@@ -7,13 +7,13 @@ import WorkoutCreation from "./pages/workoutCreation";
 import Journal from "./pages/journal";
 import AboutUs from "./pages/aboutUs";
 import Login from "./pages/login";
-import Signup from "./pages/signup";
+import ProtectedRoute from "./components/protectedRoute";
+
 import "./App.css";
 
 
-
-
-function HomePage() {
+function HomePage({user}) {
+  
   return (
     <div>
       <nav id="desktop-nav">
@@ -32,17 +32,61 @@ function HomePage() {
   );
 }
 
+// Main Router Hub
 function App() {
+  const [user, setUser] = useState(null);
+
+  // fetches the user information and checks if they are logged in
+  useEffect(() => {
+    fetch("http://localhost:8080/auth/user", {
+      credentials: "include",
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json(); // return user data
+        } else {
+          return null; // not logged in or error
+        }
+      })
+      .then((data) => {
+        setUser(data); 
+      })
+      .catch((error) => {
+        console.error("Failed to fetch user:", error);
+        setUser(null);
+      });
+  }, []);
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage/>}/>
-        <Route path="/workout-library" element={<WorkoutLibrary/>}/>  
-        <Route path="/workout-creation" element={<WorkoutCreation/>}/>  
-        <Route path="/journal" element={<Journal/>}/>
+        {/* Public Pages */}
+
+        {/* Add condition so if the user is logged in he sees a different home page */}
+        <Route path="/" element={<HomePage user={user}/>}/>
+
         <Route path="/about-us" element={<AboutUs/>}/>
         <Route path="/login" element={<Login/>}/>
-        <Route path="/signup" element={<Signup/>}/>
+
+        {/* Protected Pages */}
+        <Route path="/workout-library" element={
+          <ProtectedRoute user={user}>
+            <WorkoutLibrary />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/workout-creation" element={
+          <ProtectedRoute user={user}>
+            <WorkoutCreation />
+          </ProtectedRoute>
+        } />  
+        
+        <Route path="/journal" element={
+          <ProtectedRoute user={user}>
+            <Journal />
+          </ProtectedRoute>
+        } />
+
       </Routes>
     </Router>
   );

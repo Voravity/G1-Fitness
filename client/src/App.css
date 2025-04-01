@@ -59,6 +59,7 @@ nav {
   background-repeat: no-repeat;
   background-position: center top;
   opacity: 0.06;
+  pointer-events: none;
   }
 
 /* Responsive to other screen widths*/
