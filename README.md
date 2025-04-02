@@ -80,3 +80,4 @@
 - g1fit.db is not included in the repo for security reasons. Run seed.js to generate it.
 
 - You must run both the backend and frontend servers at the same time for the app to work.
+
