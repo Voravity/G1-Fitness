@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 import logo from "../assets/G1Logo.png";
 
-import "../index.css";
 import "../styles/workoutLibrary.css";
 
 function WorkoutLibrary() {

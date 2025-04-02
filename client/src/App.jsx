@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Routes, Link} from "react-router-dom";
+import { BrowserRouter as Router, useNavigate, Route, Routes, Link} from "react-router-dom";
 
 import logo from "./assets/G1Logo.png";
 import WorkoutLibrary from "./pages/workoutLibrary"; 
@@ -11,8 +11,8 @@ import ProtectedRoute from "./components/protectedRoute";
 
 import "./App.css";
 
-
 function HomePage({user, setUser}) {
+  const navigate = useNavigate();
   
   // This is the code change the buttons depending on the user
   let authButton;
@@ -26,9 +26,10 @@ function HomePage({user, setUser}) {
         onClick={() => {
           fetch("http://localhost:8080/auth/logout", {
             credentials: "include",
+            
           }).then(() => {
             setUser(null); // Set user to NULL after logout
-            
+            navigate("/");
           });
         }}
       > 
@@ -63,6 +64,7 @@ function HomePage({user, setUser}) {
 
 // Main Router Hub
 function App() {
+
   const [user, setUser] = useState(null);
 
   // fetches the user information and checks if they are logged in

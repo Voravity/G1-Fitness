@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import logo from "../assets/G1Logo.png";
 import dumbbell from "../assets/dumbbell.png";
 
-import "../index.css";
 import "../styles/workoutCreation.css"; 
 
 function WorkoutCreation() {

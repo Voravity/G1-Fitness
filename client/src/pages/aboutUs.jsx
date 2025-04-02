@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import logo from "../assets/G1Logo.png";
 import githubLogo from "../assets/github.png";
 
-import "../index.css";
 import "../styles/aboutUs.css";
 
 //About us page that will introduce our project, along with giving the user access to the repo with all the code. 
@@ -36,7 +35,7 @@ function AboutUs() {
         </p>
   
         <div>
-          <a href="https://github.com/mysterydoggy/G1-fitness" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/Voravity/G1-Fit" target="_blank" rel="noopener noreferrer">
             <img src={githubLogo} alt="GitHub Repo" className="github-logo" />
           </a>
         </div>

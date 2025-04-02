@@ -19,12 +19,11 @@ client/
 server/
 ├── controllers/            # Handle logic for different endpoints (e.g., userController.js)
 ├── middleware/             # Middleware like authentication or logging
-├── models/                 # Database models / schemas
 ├── node_modules/           # Installed npm packages for the backend
 ├── routes/                 # Express route definitions (e.g., userRoutes.js)
 ├── package.json            # Project metadata and backend dependencies
 ├── package-lock.json       # Locks dependency versions for backend
-└── server.js               # Entry point for backend (starts Express server)
+└── server.js               # Entry point for backend 
 
-.gitignore                  # Specifies files/folders Git should ignore
-README.md                  # Project overview, setup instructions, etc.
+.gitignore                  
+README.md                  

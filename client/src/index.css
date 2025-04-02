@@ -26,7 +26,7 @@ code {
   background-color: #000;
   color: limegreen; 
   min-height: calc(100vh - 6rem);
-  padding: 3rem 2rem;
+  padding: 1rem 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@ code {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -1rem;
+  margin-top: -2.5rem;
 }
 
 /* Divider == <hr> */
@@ -49,14 +49,15 @@ code {
   background-color: limegreen;
   margin: 1.5rem auto;
   width: 75%;
+  margin-top: 0;
 }
 
 /* Page Tittle */
 .title {
   top: 30px;
   position: relative;
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
+  margin-bottom: 3rem;
   font-weight: bold;
   color:limegreen;
   text-align: center;
@@ -73,6 +74,7 @@ code {
   background-color: limegreen;
   border: none;
   padding: 10px 16px;
+  margin-top: 3.2rem;
   font-size: 1rem;
   color: #000;
   font-weight: bold;
@@ -95,8 +97,6 @@ code {
   margin-bottom: 2rem;
   line-height: 1.6;
 }
-
-
 
 
 /* Responsive to other screen widths due to change this only supports main page as of now*/

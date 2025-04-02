@@ -6,7 +6,6 @@ import google from "../assets/google.png";
 import facebook from "../assets/facebook.png";
 import github from "../assets/github.png";
 
-import "../index.css";
 import "../styles/login.css";
 
 
