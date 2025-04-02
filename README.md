@@ -17,4 +17,4 @@
 - MySQL database
 
 ## Other Tools
-...
+- Oauth
