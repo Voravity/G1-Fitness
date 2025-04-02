@@ -1,3 +1,5 @@
+
+/* Container for everything */
 .login-container {
   background-color: #282c34;
   min-height: 100vh;
@@ -10,6 +12,7 @@
   padding: 20px;
 }
 
+/* Box that holds the entire authentication module */
 .auth-box {
   background-color: #1f1f1f;
   padding: 40px;
@@ -19,18 +22,21 @@
   width: 100%;
 }
 
+/* "Sign In or Sign Up" */
 .auth-title {
   font-size: 2.2rem;
   margin-bottom: 10px;
   color: limegreen;
 }
 
+/* "Use one of your existing accounts:" */
 .auth-header {
   margin-bottom: 25px;
   font-size: 1.1rem;
   color: #ccc;
 }
 
+/* All 3 authentication Buttons */
 .auth-button {
   display: flex;
   align-items: center;
@@ -59,23 +65,8 @@
   margin-right: 12px;
 }
 
+/* Needed to separate logo a little */
 .logo {
   width: 130px;
   margin-top: 30px;
-}
-
-/* Mobile tweaks */
-@media (max-width: 500px) {
-  .auth-box {
-    padding: 25px;
-  }
-
-  .auth-title {
-    font-size: 1.8rem;
-  }
-
-  .auth-button {
-    font-size: 0.95rem;
-    padding: 12px;
-  }
 }

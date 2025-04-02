@@ -1,84 +1,133 @@
-.create-container {
-    background-color: #000;
-    color: limegreen;
-    min-height: 100vh;
-    padding: 2rem;
-    text-align: center;
-    font-family: 'Segoe UI', sans-serif;
+/* Icon Box */
+.icon {
+  margin: 1rem 0 2rem 0;
+}
+
+/* Dumbbell Image */
+.dumbbell-icon {
+  width: 200px; 
+  filter: drop-shadow(0 0 15px limegreen);
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Workout Plan Form */
+.workout-form {
+  width: 100%;
+  max-width: 700px;
+  background-color: #111;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+  margin-top: 2rem;
+  animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Dropdowns and Input */
+.input-field {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+  border: 1px solid limegreen;
+  background-color: #000;
+  color: limegreen;
+}
+
+/* Exercise List Box */
+.exercise-list {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+/* Individual Exercise */
+.exercise-item {
+  display: block;
+  margin: 0.3rem 0;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.exercise-item:hover {
+  color: limegreen;
+  cursor: pointer;
+}
+
+/* Error Message */
+.error-text {
+  color: red;
+  font-weight: bold;
+  margin-top: 1rem;
+  font-size: large;
+}
+
+/* Workout Plan Table */
+.workout-plan {
+  margin-top: 2rem;
+}
+
+.workout-table {
+  width: 100%;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.workout-table th,
+.workout-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid limegreen;
+}
+
+.workout-table th {
+  color: limegreen;
+}
+
+/* Note Message Style */
+.note {
+  font-size: 1rem;
+  color: #888;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Button spacing */
+.nav-button:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+/* Mobile Tweaks */
+@media (max-width: 600px) {
+  .workout-form {
+    padding: 1.5rem;
   }
-  
-  .create-workout-button,
-  .save-button {
-    background-color: limegreen;
-    color: #000;
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    margin: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+
+  .input-field {
+    font-size: 0.95rem;
   }
-  
-  .create-workout-button:hover,
-  .save-button:hover {
-    background-color: #006800;
-    transform: scale(1.05);
-    box-shadow: 0 0 8px limegreen;
+
+  .add-button,
+  .save-button,
+  .nav-button {
+    width: 100%;
   }
-  
-  .workout-name-input {
-    padding: 10px;
-    width: 60%;
-    max-width: 400px;
-    font-size: 1rem;
-    border: 2px solid limegreen;
-    border-radius: 6px;
-    margin: 1rem auto;
-    background-color: #111;
-    color: limegreen;
-  }
-  
-  .muscle-group-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin: 1rem 0;
-    flex-wrap: wrap;
-  }
-  
-  .muscle-group-button {
-    background-color: transparent;
-    border: 2px solid limegreen;
-    padding: 10px 20px;
-    border-radius: 6px;
-    color: limegreen;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .muscle-group-button:hover,
-  .muscle-group-button.active {
-    background-color: limegreen;
-    color: #000;
-    transform: scale(1.05);
-  }
-  
-  .exercise-list {
-    margin-top: 1rem;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
+
   .exercise-item {
-    margin: 0.5rem 0;
-    color: #ccc;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
   }
-  
-  .save-button-container {
-    margin-top: 2rem;
-  }
+}

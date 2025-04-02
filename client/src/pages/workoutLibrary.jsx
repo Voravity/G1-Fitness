@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
-import "../App.css";
+
+import logo from "../assets/G1Logo.png";
+
+import "../index.css";
 import "../styles/workoutLibrary.css";
 
 function WorkoutLibrary() {
   return (
-    <div className="library-container">
-      <h1 className="library-title">Workout Routines</h1>
+    <div className="container">
+      <div className="header">
+        <img src={logo} alt="G1 Fitness Logo" className="logo" />
+        <h1 className="title">Workout Routines</h1>                
+        <Link to="/">
+          <button className="nav-button">Return Home</button>
+        </Link>
+      </div>
+
       <hr className="divider" />
 
       <p className="library-description">
@@ -14,7 +24,7 @@ function WorkoutLibrary() {
       </p>
 
       {/* Placeholder for future routines */}
-      <div className="routine-placeholder">
+      <div className="routine-container">
         <p>No saved routines yet.</p>
         <Link to="/workout-creation">
           <button className="nav-button">Create a Workout</button>

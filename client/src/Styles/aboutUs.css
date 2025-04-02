@@ -1,33 +1,5 @@
-.about-container {
-    padding: 2rem;
-    color: limegreen;
-    text-align: center;
-    background-color: #000;
-    min-height: 100vh;
-  }
-  
-  .divider {
-    border: none;
-    height: 2px;
-    background: limegreen;
-    margin: 1.5rem auto;
-    width: 60%;
-  }
-  
-  .about-text {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
-    color: #ccc;
-    line-height: 1.6;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .github-link {
-    margin: 2rem 0;
-  }
-  
+   
+   /* GitHub Logo */
   .github-logo {
     width: 100px;
     transition: transform 0.3s ease;
@@ -39,6 +11,3 @@
     transform: scale(1.1) rotate(2deg);
   }
   
-  .nav-button {
-    margin-top: 1rem;
-  }

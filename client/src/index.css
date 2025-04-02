@@ -1,3 +1,6 @@
+
+/* THESE ARE GLOBAL ELEMENTS YOU CAN USE EVERYWHERE */
+
 html {
   scroll-behavior: smooth;
 }
@@ -16,4 +19,111 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Page Container */
+.container {
+  background-color: #000;
+  color: limegreen; 
+  min-height: calc(100vh - 6rem);
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Page Headers */
+.header {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: -1rem;
+}
+
+/* Divider == <hr> */
+.divider {
+  border: none;
+  height: 2px;
+  background-color: limegreen;
+  margin: 1.5rem auto;
+  width: 75%;
+}
+
+/* Page Tittle */
+.title {
+  top: 30px;
+  position: relative;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color:limegreen;
+  text-align: center;
+}
+
+/* Project Logo */
+.logo {
+  width: 100px;
+  filter: drop-shadow(0 0 7px limegreen);
+}
+
+/* Main Navigation Buttons */
+.nav-button {
+  background-color: limegreen;
+  border: none;
+  padding: 10px 16px;
+  font-size: 1rem;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.nav-button:hover {
+  background-color: #006800;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px #00ff00;
+}
+
+/* Page Description or Sentence*/
+.description {
+  color: #ccc;
+  font-size: 1.2rem;
+  max-width: 900px;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+
+
+
+/* Responsive to other screen widths due to change this only supports main page as of now*/
+@media (max-width: 811px) {
+  nav#desktop-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .app-logo {
+    margin-top: 1rem;
+    height: 60px;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+
+  .nav-button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    align-items: center;
+  }
 }

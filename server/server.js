@@ -71,30 +71,71 @@ passport.deserializeUser((user, done) => {
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 app.get("/auth/google/callback",
-  passport.authenticate("google", {
-    successRedirect: "http://localhost:5173/",
-    failureRedirect: "http://localhost:5173/login",
-  })
+  passport.authenticate("google", {failureRedirect: "http://localhost:5173/login"}),
+
+  /* 
+    Send a small html snippet as a response to a successful callback.
+    It sends it to the window.opener in the frontend login page which follows the html instructions.
+  */
+  (req, res) => {
+    res.send(`
+      <html>
+        <body>
+          <script>
+            window.opener.postMessage("oauth-success", "*");
+            window.close();
+          </script>
+        </body>
+      </html>
+    `);
+  }
 );
 
 // facebook route
 app.get("/auth/facebook", passport.authenticate("facebook", { scope: ["email"] }));
 
 app.get("/auth/facebook/callback",
-  passport.authenticate("facebook", {
-    successRedirect: "http://localhost:5173/",
-    failureRedirect: "http://localhost:5173/login",
-  })
+  passport.authenticate("facebook", {failureRedirect: "http://localhost:5173/login"}),
+  /* 
+    Send a small html snippet as a response to a successful callback.
+    It sends it to the window.opener in the frontend login page which follows the html instructions.
+  */
+    (req, res) => {
+      res.send(`
+        <html>
+          <body>
+            <script>
+              window.opener.postMessage("oauth-success", "*");
+              window.close();
+            </script>
+          </body>
+        </html>
+      `);
+    }
 );
 
 // github route
 app.get("/auth/github", passport.authenticate("github", { scope: ["user:email"] }));
 
 app.get("/auth/github/callback",
-  passport.authenticate("github", {
-    successRedirect: "http://localhost:5173/",
-    failureRedirect: "http://localhost:5173/login",
-  })
+  passport.authenticate("github", {failureRedirect: "http://localhost:5173/login"}),
+  
+  /* 
+    Send a small html snippet as a response to a successful callback.
+    It sends it to the window.opener in the frontend login page which follows the html instructions.
+  */
+    (req, res) => {
+      res.send(`
+        <html>
+          <body>
+            <script>
+              window.opener.postMessage("oauth-success", "*");
+              window.close();
+            </script>
+          </body>
+        </html>
+      `);
+    }
 );
 
 app.get("/auth/logout", (req, res) => {
