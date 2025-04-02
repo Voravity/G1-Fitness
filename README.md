@@ -57,10 +57,10 @@
     SESSION_SECRET=super-secret-session-string
 
     # Populate Database 
-    In terminal do:
+    In terminal continue on server directory and do:
     npm run seed 
 
-    This will populate the Muscle Groups and Exercises
+    This will populate the Database Muscle Groups and Exercises
 
     # Start The Server
     In terminal do:

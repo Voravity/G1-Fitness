@@ -1,5 +1,5 @@
 
-// This is just dummy data to insert to database.
+// This is just Muscle Groups and Exercise data to insert to database.
 
 import db from "./db.js";
 
