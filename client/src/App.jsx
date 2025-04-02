@@ -11,7 +11,7 @@ import ProtectedRoute from "./components/protectedRoute";
 
 import "./App.css";
 
-function HomePage({user, setUser}) {
+function HomePage({user, setUser, getUser}) {
   const navigate = useNavigate();
   
   // This is the code change the buttons depending on the user
@@ -26,11 +26,19 @@ function HomePage({user, setUser}) {
         onClick={() => {
           fetch("http://localhost:8080/auth/logout", {
             credentials: "include",
-            
-          }).then(() => {
-            setUser(null); // Set user to NULL after logout
-            navigate("/");
-          });
+          })
+            .then((res) => {
+              if (res.ok) {
+                console.log("✅ Logged out");
+                getUser();        
+                navigate("/");    
+              } else {
+                console.log("❌ Logout failed");
+              }
+            })
+            .catch((err) => {
+              console.error("❌ Error during logout:", err);
+            });
         }}
       > 
       Log Out</button>
@@ -68,24 +76,22 @@ function App() {
   const [user, setUser] = useState(null);
 
   // fetches the user information and checks if they are logged in
-  useEffect(() => {
+  const getUser = () => {
     fetch("http://localhost:8080/auth/user", {
       credentials: "include",
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json(); // return user data
-        } else {
-          return null; // not logged in or error
-        }
-      })
+      .then((res) => res.ok ? res.json() : null)
       .then((data) => {
-        setUser(data); 
+        setUser(data);
       })
-      .catch((error) => {
-        console.error("Failed to fetch user:", error);
+      .catch((err) => {
+        console.error("Failed to fetch user:", err);
         setUser(null);
       });
+  };
+  
+  useEffect(() => {
+    getUser();
   }, []);
 
   return (
@@ -94,7 +100,7 @@ function App() {
         {/* Public Pages */}
 
         {/* Add condition so if the user is logged in he sees a different home page */}
-        <Route path="/" element={<HomePage user={user} setUser={setUser}/>}/>
+        <Route path="/" element={<HomePage user={user} setUser={setUser} getUser={getUser}/>}/>
 
         <Route path="/about-us" element={<AboutUs/>}/>
         <Route path="/login" element={<Login/>}/>
