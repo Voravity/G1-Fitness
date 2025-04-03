@@ -26,24 +26,31 @@ db.exec(`
   )
 `);
 
-// Creating data table for all exercises
+/* Creating data table for all exercises */
 // Muscle groups
 db.exec(`
-    CREATE TABLE IF NOT EXISTS muscle_groups (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      category TEXT,
-      subcategory TEXT
-    )
-  `);
+  CREATE TABLE IF NOT EXISTS muscle_groups (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category TEXT,
+    subcategory TEXT
+  )
+`);
   
-  // Exercises
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS exercises (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT,
-      muscle_group_id INTEGER,
-      FOREIGN KEY (muscle_group_id) REFERENCES muscle_groups(id)
-    )
-  `);
+// Exercises
+db.exec(`
+  CREATE TABLE IF NOT EXISTS exercises (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    muscle_group_id INTEGER,
+    FOREIGN KEY (muscle_group_id) REFERENCES muscle_groups(id)
+  )
+`);
+
+/* Creating data table for Saved Workouts */
+// Workouts
+
+
+// Workout Exercises
+
 
 export default db;

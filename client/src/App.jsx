@@ -14,7 +14,7 @@ import "./App.css";
 function HomePage({user, setUser, getUser}) {
   const navigate = useNavigate();
   
-  // This is the code change the buttons depending on the user
+  // This is the code change the buttons depending on wether theres a user or no user
   let authButton;
 
   // If there is a user 
@@ -29,15 +29,15 @@ function HomePage({user, setUser, getUser}) {
           })
             .then((res) => {
               if (res.ok) {
-                console.log("✅ Logged out");
+                console.log("Logged out");
                 getUser();        
                 navigate("/");    
               } else {
-                console.log("❌ Logout failed");
+                console.log("Logout failed");
               }
             })
             .catch((err) => {
-              console.error("❌ Error during logout:", err);
+              console.error("Error during logout:", err);
             });
         }}
       > 
@@ -50,7 +50,6 @@ function HomePage({user, setUser, getUser}) {
       </Link>
     );
   }
-
 
   return (
     <div>
@@ -74,25 +73,43 @@ function HomePage({user, setUser, getUser}) {
 function App() {
 
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // fetches the user information and checks if they are logged in
   const getUser = () => {
     fetch("http://localhost:8080/auth/user", {
       credentials: "include",
     })
-      .then((res) => res.ok ? res.json() : null)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return null;
+        }
+      })
       .then((data) => {
         setUser(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.error("Failed to fetch user:", err);
         setUser(null);
+        setLoading(false);
       });
   };
   
   useEffect(() => {
     getUser();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p className="loading-text">Loading your session...</p>
+      </div>
+    );
+  }
 
   return (
     <Router>

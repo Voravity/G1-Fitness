@@ -25,7 +25,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/auth", authRoutes);
 
-
 passport.serializeUser((user, done) => {
   done(null, user);
 });
@@ -33,6 +32,16 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+// Checks if theres a user logged in
+app.get("/auth/user", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json(req.user);
+  } else {
+    res.status(401).json({ message: "Not logged in" });
+  }
+});
+
+// Logs user out
 app.get("/auth/logout", (req, res) => {
   req.logout(() => {
     res.json({ message: "Logged out" });
@@ -64,15 +73,6 @@ app.get("/api/exercises", (req, res) => {
   res.json(grouped);
 });
 
-
-// Checks if theres a user logged in
-app.get("/auth/user", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json(req.user);
-  } else {
-    res.status(401).json({ message: "Not logged in" });
-  }
-});
 
 //  START SERVER 
 app.listen(PORT, () => {

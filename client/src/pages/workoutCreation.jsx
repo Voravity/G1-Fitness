@@ -15,6 +15,7 @@ function WorkoutCreation() {
   const [isWorkoutCreated, setIsWorkoutCreated] = useState(false);
   const [duplicateMessage, setDuplicateMessage] = useState("");
 
+
   const exercises = {
     Arms: {
       Biceps: ["Bicep Curl", "Hammer Curl", "Concentration Curl"],
@@ -54,6 +55,17 @@ function WorkoutCreation() {
     },
   };
 
+  // Helper to check for duplicates
+  function isDuplicate(item) {
+    return workoutPlan.some(
+      (w) =>
+        w.exercise === item.exercise &&
+        w.subcategory === item.subcategory &&
+        w.category === item.category
+    );
+  }
+  
+  // Toggle exercise checkbox
   function handleCheckboxChange(subcategory, exercise) {
     setSelectedExercises((prev) => {
       const current = prev[subcategory] || [];
@@ -64,11 +76,13 @@ function WorkoutCreation() {
     });
   }
 
+  // When a new muscle group is selected
   function handleCategoryChange(category) {
     setActiveCategory(category);
     setActiveSubcategory(null);
   }
 
+  // Add selected exercises to workout plan
   function handleAddToWorkout() {
     if (!activeSubcategory || !selectedExercises[activeSubcategory]) return;
 
@@ -78,15 +92,7 @@ function WorkoutCreation() {
       exercise,
     }));
 
-    const duplicates = newItems.filter((item) =>
-      workoutPlan.some(
-        (w) =>
-          w.exercise === item.exercise &&
-          w.subcategory === item.subcategory &&
-          w.category === item.category
-      )
-    );
-
+    const duplicates = newItems.filter(isDuplicate);
     if (duplicates.length > 0) {
       setDuplicateMessage("❗ One or more exercises already added.");
       return;
@@ -94,16 +100,16 @@ function WorkoutCreation() {
 
     setWorkoutPlan((prev) => [...prev, ...newItems]);
     setDuplicateMessage("");
-    setSelectedExercises((prev) => ({
-      ...prev,
-      [activeSubcategory]: [],
+    setSelectedExercises((prev) => ({...prev, [activeSubcategory]: [],
     }));
   }
 
+  // Remove an exercise from the plan
   function handleRemove(index) {
     setWorkoutPlan((prev) => prev.filter((_, i) => i !== index));
   }
 
+  // Save workout to ???(placeholder)???
   function handleSaveWorkout() {
     console.log("Workout Saved:", workoutName, workoutPlan);
   }
@@ -125,16 +131,14 @@ function WorkoutCreation() {
       </div>
 
       {!isWorkoutCreated && (
-        <button className="nav-button" onClick={() => setIsWorkoutCreated(true)}>
-          Start Building
-        </button>
+        <button className="nav-button" onClick={() => setIsWorkoutCreated(true)}>Start Building</button>
       )}
 
       {isWorkoutCreated && (
         <div className="workout-form">
           <input
             type="text"
-            placeholder="Enter Exercise Name"
+            placeholder="Enter Workout  Name"
             value={workoutName}
             onChange={(e) => setWorkoutName(e.target.value)}
             className="input-field"
@@ -212,9 +216,7 @@ function WorkoutCreation() {
                 </tbody>
               </table>
 
-              <button className="nav-button" onClick={handleSaveWorkout}>
-                Save Workout
-              </button>
+              <button className="nav-button" onClick={handleSaveWorkout}>Save Workout</button>
             </div>
           )}
         </div>
