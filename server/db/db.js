@@ -66,5 +66,21 @@ db.exec(`
     FOREIGN KEY (workout_id) REFERENCES workouts(id)
   )
 `);
+// journal entries table 
+db.exec(`
+  CREATE TABLE IF NOT EXISTS journal_entries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id TEXT,
+    routine_id INTEGER,
+    entry_name TEXT,
+    mood TEXT,
+    date_created TEXT,
+    data TEXT, -- JSON string of sets/reps/weight/etc
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (routine_id) REFERENCES workouts(id)
+  )
+`);
+
+
 
 export default db;
