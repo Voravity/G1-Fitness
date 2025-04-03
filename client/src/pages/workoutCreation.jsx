@@ -183,7 +183,7 @@ function WorkoutCreation() {
               {exercises[activeCategory][activeSubcategory].map((exercise) => (
                 <label key={exercise} className="exercise-item">
                   <input
-                    type="checkbox"
+                    type="checkbox" className="checkbox"
                     checked={selectedExercises[activeSubcategory]?.includes(exercise) || false}
                     onChange={() => handleCheckboxChange(activeSubcategory, exercise)}
                   />
@@ -219,7 +219,7 @@ function WorkoutCreation() {
                       <td>{item.subcategory} - {item.category}</td>
                       <td>{item.exercise}</td>
                       <td>
-                        <button onClick={() => handleRemove(index)}>❌ Remove</button>
+                        <button className="remove-button" onClick={() => handleRemove(index)}>❌ Remove</button>
                       </td>
                     </tr>
                   ))}

@@ -36,10 +36,10 @@
 
 /* Dropdowns and Input */
 .input-field {
-  width: 100%;
+  width: 90%;
   padding: 0.8rem;
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   border-radius: 6px;
   border: 1px solid limegreen;
   background-color: #000;
@@ -97,17 +97,58 @@
   color: limegreen;
 }
 
-/* Note Message Style */
-.note {
-  font-size: 1rem;
-  color: #888;
-  margin-top: 1rem;
-  font-style: italic;
-}
 
 /* Button spacing */
 .nav-button:not(:last-child) {
   margin-bottom: 0.5rem;
+}
+
+
+/* Styled Checkbox */
+.checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid limegreen;
+  border-radius: 4px;
+  margin-right: 10px;
+  background-color: black;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: 0.2s all ease-in-out;
+}
+
+.checkbox:checked {
+  background-color: limegreen;
+  border-color: limegreen;
+  position: relative;
+}
+
+.checkbox:checked::after {
+  content: "✔";
+  color: black;
+  position: absolute;
+  font-size: 14px;
+  left: 3px;
+  top: 0;
+}
+
+/* Remove Button */
+.remove-button {
+  background-color: transparent;
+  color: red;
+  border: 1px solid red;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 0.95rem;
+}
+
+.remove-button:hover {
+  background-color: rgb(175, 0, 0);
+  color: black;
+  font-weight: bold;
 }
 
 /* Mobile Tweaks */

@@ -1,70 +1,59 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, useNavigate, Route, Routes, Link} from "react-router-dom";
 
-import logo from "./assets/G1Logo.png";
-import WorkoutLibrary from "./pages/workoutLibrary"; 
-import WorkoutCreation from "./pages/workoutCreation";
-import Journal from "./pages/journal";
-import AboutUs from "./pages/aboutUs";
-import Login from "./pages/login";
-import ProtectedRoute from "./components/protectedRoute";
+import logo from "../assets/G1Logo.png";
+import WorkoutLibrary from "./workoutLibrary"; 
+import WorkoutCreation from "./workoutCreation";
+import Journal from "./journal";
+import AboutUs from "./aboutUs";
+import Login from "./login";
+import ProtectedRoute from "../components/protectedRoute";
 
-import "./App.css";
+import "../styles/home.css";
 
 function HomePage({user, setUser, getUser}) {
   const navigate = useNavigate();
   
-  // This is the code change the buttons depending on wether theres a user or no user
-  let authButton;
-
-  // If there is a user 
-  if(user){
-    authButton = (
-      
-      <button
-        className="nav-button"
-        onClick={() => {
-          fetch("http://localhost:8080/auth/logout", {
-            credentials: "include",
-          })
-            .then((res) => {
-              if (res.ok) {
-                console.log("Logged out");
-                getUser();        
-                navigate("/");    
-              } else {
-                console.log("Logout failed");
-              }
-            })
-            .catch((err) => {
-              console.error("Error during logout:", err);
-            });
-        }}
-      > 
-      Log Out</button>
-    );
-  } else { 
-    authButton = (
-      <Link to="/login">
-        <button className="nav-button">Sign In</button>
-      </Link>
-    );
-  }
+  const handleLogout = () => {
+    fetch("http://localhost:8080/auth/logout", {
+      credentials: "include",
+    }).then((res) => {
+      if (res.ok) {
+        console.log("Logged out");
+        getUser();
+        navigate("/");
+      }
+    }).catch((err) => {
+      console.error("Logout failed:", err);
+    });
+  };
 
   return (
-    <div>
-      <nav id="desktop-nav">
-      <img src={logo} className="app-logo" alt="logo"/>  
-        <div className="button-group">
-          <Link to="/workout-library"><button className="nav-button">Workout Library</button></Link>   
-          <Link to="/workout-creation"><button className="nav-button">Create a workout</button></Link>      
-          <Link to="/journal"><button className="nav-button">Journal</button></Link>
-          <Link to="/about-us"><button className="nav-button">About us</button></Link>
-          {authButton}
-        </div>            
-      </nav>
+    <div className="container">
+      <div className="header">
+        <img src={logo} alt="G1 Fitness Logo" className="logo" />
+        <h1 className="title">G1 Fitness</h1>
+        
+        {/* If theres a user then show logout button and handle logout function else show signin button */}
+        {user ? (
+          <button className="nav-button" onClick={handleLogout}>Log Out</button>
+        ) : (
+          <Link to="/login">
+            <button className="nav-button">Sign In</button>
+          </Link>
+        )}
+      </div>
+
+      <hr className="divider" />
+
+      <div className="button-group">
+        <Link to="/workout-library"><button className="nav-button">Workout Library</button></Link>
+        <Link to="/workout-creation"><button className="nav-button">Create a Workout</button></Link>
+        <Link to="/journal"><button className="nav-button">Journal</button></Link>
+        <Link to="/about-us"><button className="nav-button">About Us</button></Link>
+      </div>
+
       <div className="background"></div>
-      <div className="home-title">Welcome to G1 Fitness</div>
     </div>
   );
 }
