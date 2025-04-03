@@ -48,9 +48,23 @@ db.exec(`
 
 /* Creating data table for Saved Workouts */
 // Workouts
-
+db.exec(`
+  CREATE TABLE IF NOT EXISTS workouts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    user_id TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+  )
+`);
 
 // Workout Exercises
-
+db.exec(`
+  CREATE TABLE IF NOT EXISTS workout_exercises (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    workout_id INTEGER,
+    exercise_name TEXT,
+    FOREIGN KEY (workout_id) REFERENCES workouts(id)
+  )
+`);
 
 export default db;

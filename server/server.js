@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import session from "express-session";
 import passport from "passport";
+
 import authRoutes from "./auth/authRoutes.js";
 
 import db from "./db/db.js";
@@ -71,6 +72,35 @@ app.get("/api/exercises", (req, res) => {
   }
 
   res.json(grouped);
+});
+
+// Route to save workouts
+app.post("/api/workouts", (req, res) => {
+  const user = req.user;
+  if (!user) return res.status(401).json({ message: "Not authenticated" });
+
+  const { name, exercises } = req.body;
+  if (!name || !Array.isArray(exercises)) {
+    return res.status(400).json({ message: "Invalid data" });
+  }
+
+  const insertWorkout = db.prepare(`
+    INSERT INTO workouts (name, user_id)
+    VALUES (?, ?)
+  `);
+  const workoutResult = insertWorkout.run(name, user.id, createdAt);
+  const workoutId = workoutResult.lastInsertRowid;
+
+  const insertExercise = db.prepare(`
+    INSERT INTO workout_exercises (workout_id, exercise_name)
+    VALUES (?, ?)
+  `);
+
+  for (const exercise of exercises) {
+    insertExercise.run(workoutId, exercise);
+  }
+
+  res.json({ message: "Workout saved", workoutId });
 });
 
 

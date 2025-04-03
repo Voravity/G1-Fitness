@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import logo from "../assets/G1Logo.png";
@@ -14,46 +14,21 @@ function WorkoutCreation() {
   const [workoutPlan, setWorkoutPlan] = useState([]);
   const [isWorkoutCreated, setIsWorkoutCreated] = useState(false);
   const [duplicateMessage, setDuplicateMessage] = useState("");
+  const [exercises, setExercises] = useState({});
+  const [loading, setLoading] = useState(true);
 
-
-  const exercises = {
-    Arms: {
-      Biceps: ["Bicep Curl", "Hammer Curl", "Concentration Curl"],
-      Triceps: ["Tricep Dip", "Tricep Pushdown", "Skull Crusher"],
-      Forearms: ["Wrist Curl", "Reverse Curl", "Forearm Plank"],
-    },
-    
-    Back: {
-      Upper: ["Seated Cable Row", "Bent-over Barbell Row", "T-Bar Row"],
-      Lats: ["Lat Pulldown", "Pull-up", "Chin-up", "Straight-Arm Pulldown"],
-      Lower: ["Deadlift", "Barbell Good Mornings", "Back Extension"],
-      Traps: ["Shrugs", "Face Pulls", "Upright Row"],
-    },
-    Chest: {
-      Upper: ["Incline Bench Press", "Incline Dumbbell Press", "Incline Push-Up"],
-      Middle: ["Bench Press", "Flat Dumbbell Press", "Chest Fly"],
-      Lower: ["Decline Bench Press", "Dips (Chest Focused)", "Cable Crossover"],
-    },
-    Core: {
-      Inner: ["Plank", "Bird Dog", "Dead Bug"],
-      Outer: ["Side Plank", "Oblique Crunch", "Hang Leg Raise"],
-    },
-    FullBody: {
-      Power: ["Clean and Jerk", "Snatch", "Snatch"],
-      Conditioning: ["Burpees", "Kettlebell Swings", "Battle Ropes"],
-      BodyWeight: ["Jump Squats", "Push-Up to Plank", "Mountain Climbers"],
-    },
-    Legs: {
-      Quadriceps: ["Barbell Squat", "Leg Press", "Lunges"],
-      Hamstrings: ["Deadlift", "Hamstring Curl", "Glute Bridge"],
-      Calves: ["Calf Raise", "Seated Calf Raise", "Donkey Calf Raise"],
-      Glutes: ["Hip Thrust", "Cable Kickback", "Glute Bridge"],
-    },
-    Shoulders: {
-      Deltoids: ["Overhead Press", "Lateral Raise", "Upright Row"],
-      RotatorCuff: ["External Rotation", "Internal Rotation", "Face Pull"],
-    },
-  };
+  useEffect(() => {
+    fetch("http://localhost:8080/api/exercises")
+      .then((res) => res.json())
+      .then((data) => {
+        setExercises(data);      
+        setLoading(false);   
+      })
+      .catch((err) => {
+        console.error("Failed to load exercises:", err);
+        setLoading(false);
+      });
+  }, []);
 
   // Helper to check for duplicates
   function isDuplicate(item) {
@@ -109,9 +84,44 @@ function WorkoutCreation() {
     setWorkoutPlan((prev) => prev.filter((_, i) => i !== index));
   }
 
-  // Save workout to ???(placeholder)???
+  // Save workout to database
   function handleSaveWorkout() {
-    console.log("Workout Saved:", workoutName, workoutPlan);
+    if (!workoutName || selectedExercises.length === 0) {
+      alert("Please enter a workout name and select at least one exercise.");
+      return;
+    }
+  
+    fetch("http://localhost:8080/api/workouts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        name: workoutName,
+        exercises: workoutPlan.map((e) => e.exercise),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Workout saved:", data);
+        alert("Workout saved successfully!");
+        setSelectedExercises([]);
+        setWorkoutName("");
+      })
+      .catch((err) => {
+        console.error("Failed to save workout:", err);
+        alert("There was an error saving your workout.");
+      });
+  }
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p className="loading-text">Loading your session...</p>
+      </div>
+    );
   }
 
   return (
