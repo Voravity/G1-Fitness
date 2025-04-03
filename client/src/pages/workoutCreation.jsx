@@ -105,8 +105,7 @@ function WorkoutCreation() {
       .then((res) => res.json())
       .then((data) => {
         console.log("Workout saved:", data);
-        setSelectedExercises([]);
-        setWorkoutName("");
+        window.location.reload();
       })
       .catch((err) => {
         console.error("Failed to save workout:", err);
