@@ -88,7 +88,7 @@ app.post("/api/workouts", (req, res) => {
     INSERT INTO workouts (name, user_id)
     VALUES (?, ?)
   `);
-  const workoutResult = insertWorkout.run(name, user.id, createdAt);
+  const workoutResult = insertWorkout.run(name, user.id);
   const workoutId = workoutResult.lastInsertRowid;
 
   const insertExercise = db.prepare(`

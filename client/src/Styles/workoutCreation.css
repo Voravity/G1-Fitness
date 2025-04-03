@@ -144,12 +144,15 @@
   transition: all 0.2s ease-in-out;
   font-size: 0.95rem;
 }
-
+.remove-button::before {
+  content: "❌ ";
+}
 .remove-button:hover {
-  background-color: rgb(175, 0, 0);
+  background-color: red;
   color: black;
   font-weight: bold;
 }
+
 
 /* Mobile Tweaks */
 @media (max-width: 600px) {

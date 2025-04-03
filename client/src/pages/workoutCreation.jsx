@@ -105,7 +105,6 @@ function WorkoutCreation() {
       .then((res) => res.json())
       .then((data) => {
         console.log("Workout saved:", data);
-        alert("Workout saved successfully!");
         setSelectedExercises([]);
         setWorkoutName("");
       })
@@ -219,7 +218,7 @@ function WorkoutCreation() {
                       <td>{item.subcategory} - {item.category}</td>
                       <td>{item.exercise}</td>
                       <td>
-                        <button className="remove-button" onClick={() => handleRemove(index)}>❌ Remove</button>
+                        <button className="remove-button" onClick={() => handleRemove(index)}>Remove</button>
                       </td>
                     </tr>
                   ))}
