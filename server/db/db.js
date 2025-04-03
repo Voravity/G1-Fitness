@@ -66,6 +66,7 @@ db.exec(`
     FOREIGN KEY (workout_id) REFERENCES workouts(id)
   )
 `);
+
 // journal entries table 
 db.exec(`
   CREATE TABLE IF NOT EXISTS journal_entries (
