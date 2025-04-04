@@ -232,6 +232,8 @@ function Journal() {
     );
   }
 
+  
+
   // form for creating/editing journal entries
   return (
     <div className="container">
@@ -279,29 +281,59 @@ function Journal() {
         onChange={(e) => setEntryDate(e.target.value)}
       />
 
-      {exerciseData.map((ex, i) => (
-        <div key={i} className="exercise-entry">
-          <h4>{ex.name}</h4>
-          <input
-            placeholder="Sets"
-            value={ex.sets}
-            onChange={(e) => handleChange(i, "sets", e.target.value)}
-            className="input-field"
-          />
-          <input
-            placeholder="Reps"
-            value={ex.reps}
-            onChange={(e) => handleChange(i, "reps", e.target.value)}
-            className="input-field"
-          />
-          <input
-            placeholder="Weight"
-            value={ex.weight}
-            onChange={(e) => handleChange(i, "weight", e.target.value)}
-            className="input-field"
-          />
-        </div>
-      ))}
+      <table className="exercise-data-table">
+        <thead>
+          <tr>
+            <th>Exercise</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Weight</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {exerciseData.map((ex, i) => (
+            <tr key={i}>
+              <td>{ex.name}</td>
+
+              <td>
+              <input
+                type="number"
+                placeholder="Sets"
+                value={ex.sets}
+                min="0"
+                onChange={(e) => handleChange(i, "sets", e.target.value)}
+                className="table-inputs"
+              />
+              </td>
+
+              <td>
+                <input
+                  type="number"
+                  placeholder="Reps"
+                  Value={ex.reps}
+                  min="0"
+                  onChange={(e) => handleChange(i, "reps", e.target.value)}
+                  className="table-inputs"
+                />
+              </td>
+
+              <td>
+                <input
+                  type="number"
+                  placeholder="Weight"
+                  step="10"
+                  min="0"
+                  Value={ex.weight}
+                  onChange={(e) => handleChange(i, "weight", e.target.value)}
+                  className="table-inputs"
+                />
+              </td>
+              
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <button className="nav-button" onClick={handleSave}>
         {entryId ? "Update Entry" : "Save Entry"}

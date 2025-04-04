@@ -57,8 +57,54 @@
   color: black !important;
 }
 
+/*All for the table below Date Field*/
+.exercise-data-table{
+  flex: 2;
+  width: 100%;
+  max-width: 1000px; 
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size:17px;
+}
+
+.exercise-data-table th, 
+.exercise-data-table td {
+  border: 1px solid limegreen;
+  padding: 12px 14px;
+}
+
+.exercise-data-table tr:hover{
+  background-color: #191818;
+  box-shadow: 0 0 8px #00ff00;
+}
+
+.exercise-data-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #000;
+  z-index: 1;
+}
 
 
+.table-inputs {
+  width: 80%;
+  margin: 0 auto;
+  padding: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border: 1px solid #00ff00;
+  border-radius: 6px;
+  background-color: #111;
+  color: limegreen;
+} 
+
+.table-inputs:hover {
+  border-color: #00ff88;
+  box-shadow: 0 0 5px #00ff88;
+  outline: none;
+}
 
 
 
