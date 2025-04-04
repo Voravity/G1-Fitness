@@ -1,16 +1,9 @@
-<<<<<<< Updated upstream
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-=======
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
->>>>>>> Stashed changes
 import logo from "../assets/G1Logo.png";
 import "../styles/journal.css";
 
 function Journal() {
-<<<<<<< Updated upstream
   const { state } = useLocation();
   const routine = state?.routine;
   const entryIdFromState = state?.entryId;
@@ -206,88 +199,11 @@ function Journal() {
   }
 
   // form for creating/editing journal entries
-=======
-  // State variables to manage journal entries and their count
-  const [entries, setEntries] = useState([]);
-  const [entryCount, setEntryCount] = useState(1);
-  const [selectedEntry, setSelectedEntry] = useState(null);
-  const[selectedExercise, setSelectedExercise] = useState(null);
-
-  const handleCreateEntry = () => {
-    const newEntry = `Entry #${entryCount}`;
-    setEntries([...entries, newEntry]);
-    setEntryCount(entryCount + 1);
-    setSelectedEntry(newEntry);
-  };
-
-  const handleViewEntry = (entry) => {
-    setSelectedEntry(entry);
-    //alert(`Viewing details for ${entry}`);
-  };
-
-  const handleToggleExerise = (exerciseName) => {
-    setSelectedExercise((prev) =>
-      prev === exerciseName ? null : exerciseName
-    );
-  };
-
-  const workoutData = [
-    {
-      exercise: "Bench Press",
-      setsReps: "5 x 5",
-      weight: "135 - 200",
-      comments: "Focus on exploding up",
-    },
-
-    {
-      exercise: "Incline Press",
-      setsReps: "10 x 3",
-      weight: "135 - 165",
-      comments: "Hypertrophy based",
-    },
-
-    {
-      exercise: "Cable Chest Flies",
-      setsReps: "3 x 15",
-      weight: "50 - 80",
-      comments: "Slow and concentrated, feel the pump",
-    },
-
-  ];
-
-  const setDetails = {
-    "Bench Press": [
-      { set: 1, reps: 5, weight: 135, complete: false },
-      { set: 2, reps: 5, weight: 165, complete: false },
-      { set: 3, reps: 5, weight: 175, complete: false },
-      { set: 4, reps: 5, weight: 185, complete: false },
-      { set: 5, reps: 5, weight: 200, complete: false },
-    ],
-
-    "Incline Press": [
-      { set: 1, reps: 10, weight: 135, complete: false },
-      { set: 2, reps: 10, weight: 145, complete: false },
-      { set: 3, reps: 10, weight: 165, complete: false },
-    ],
-
-    "Cable Chest Flies": [
-      { set: 1, reps: 15, weight: 50, complete: false },
-      { set: 2, reps: 15, weight: 65, complete: false },
-      { set: 3, reps: 15, weight: 80, complete: false },
-
-    ],
-  };
-
->>>>>>> Stashed changes
   return (
     <div className="container">
       <div className="header">
         <img src={logo} alt="G1 Fitness Logo" className="logo" />
-<<<<<<< Updated upstream
         <h1 className="title">Journal Entry</h1>
-=======
-        <h1 className="title">Journal</h1>
->>>>>>> Stashed changes
         <Link to="/">
           <button className="nav-button">Return Home</button>
         </Link>
@@ -296,7 +212,6 @@ function Journal() {
       <hr className="divider" />
 
       <p className="description">
-<<<<<<< Updated upstream
         {entryId ? "Editing entry for:" : "Logging workout:"}{" "}
         <strong>{routineName}</strong>
       </p>
@@ -349,93 +264,6 @@ function Journal() {
       <button className="nav-button" onClick={handleSave}>
         {entryId ? "Update Entry" : "Save Entry"}
       </button>
-=======
-        Here you can log, track, and review your workouts and nutrition as you
-        continue your fitness journey.
-      </p>
-
-      <div className="entry-wrapper">
-        <div className="entry-layout">
-          <button className="entry-button" onClick={handleCreateEntry}>
-            + Create New Entry
-          </button>
-
-          <button
-            className="entry-button"
-            onClick={() => handleViewEntry("Sample Entry")}
-          >
-            Sample Entry
-          </button>
-
-          {entries.map((entry, index) => (
-            <button
-              key={index}
-              className="entry-button"
-              onClick={() => handleViewEntry(entry)}
-            >
-              {entry}
-            </button>
-          ))}
-        </div>
-
-        {selectedEntry && (
-          <div>
-            <h2>{selectedEntry} - Workout Deatils:</h2>
-            
-            <table className="entry-table">
-              <thead>
-                <tr>
-                  <th>Exercise</th>
-                  <th>Sets x Reps</th>
-                  <th>Weight Range</th>
-                  <th>Comments</th>
-                </tr>
-              </thead>
-              <tbody>
-                {workoutData.map((workout, index) => (
-                  <React.Fragment key={index}>
-                    <tr onClick={() => handleToggleExerise(workout.exercise)}>
-                      <td>{workout.exercise}</td>
-                      <td>{workout.setsReps}</td>
-                      <td>{workout.weight}</td>
-                      <td>{workout.comments}</td>
-                    </tr>
-
-                    {selectedEntry === "Sample Entry" && selectedExercise === workout.exercise && (
-                      <tr>
-                        <td colSpan="4">
-                          <table className="entry-table">
-                            <thead>
-                              <th>Sets</th>
-                              <th>Reps</th>
-                              <th>Weight</th>
-                              <th>Completed</th>
-                            </thead>
-
-                            <tbody>
-                              {setDetails[workout.exercise].map((set,i) => (
-                                <tr key={i}>
-                                  <td>{set.set}</td>
-                                  <td>{set.reps}</td>
-                                  <td>{set.weight}</td>
-                                  <td>
-                                    <input type="checkbox" />
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </td>
-                      </tr>
-                    )}
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
->>>>>>> Stashed changes
     </div>
   );
 }
