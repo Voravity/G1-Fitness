@@ -1,4 +1,20 @@
+/* I could not figure out how to align items well so I had to wrap it 
+   this is due to the container in index.css being centered        */
+   .entry-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Align left inside centered container */
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+  }
   
+<<<<<<< Updated upstream
 .edit-button {
     margin-top: 0.5rem;
     padding: 0.3rem 0.6rem;
@@ -15,4 +31,60 @@
     background-color: #00ff88;
   }
   
+=======
+  .entry-layout {
+    flex-shrink: 0;
+    flex: 1;
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-left: 1rem;
+  }
+  
+  .entry-button {
+    background-color: limegreen;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 14px;
+    margin-top: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 180px;
+    min-width: 110px;
+    /*transition: background-color 0.3s ease, transform 0.2s ease;*/
+  }
+  
+  .entry-button:hover {
+    background-color: #006800;
+    transform: scale(1.05);
+    box-shadow: 0 0 8px #00ff00;
+  }
+  
+  .entry-table {
+    flex: 2;
+    width: 100%;
+    max-width: 800px;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 20px;
+  }
+  
+  .entry-table th,
+  .entry-table tr,
+  .entry-table td {
+    border: 1px solid limegreen;
+    padding: 12px 14px;
+  }
+  
+  .entry-table tr:hover {
+    background-color: #191818;
+    box-shadow: 0 0 8px #00ff00;
+  }
+>>>>>>> Stashed changes
   
