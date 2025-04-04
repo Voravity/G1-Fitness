@@ -157,13 +157,13 @@ app.post("/api/journal", (req, res) => {
   const user = req.user;
   if (!user) return res.status(401).json({ message: "Not authenticated" });
 
-  const { routine_id, entry_name, mood, data } = req.body;
+  const { routine_id, entry_name, mood, date, data } = req.body;
 
   const stmt = db.prepare(`
     INSERT INTO journal_entries (user_id, routine_id, entry_name, mood, date_created, data)
-    VALUES (?, ?, ?, ?, datetime('now'), ?)
+    VALUES (?, ?, ?, ?, ?, ?)
   `);
-  stmt.run(user.id, routine_id, entry_name, mood, JSON.stringify(data));
+  stmt.run(user.id, routine_id, entry_name, mood, date ?? new Date().toISOString(), JSON.stringify(data));
 
   res.json({ message: "Journal entry saved!" });
 });

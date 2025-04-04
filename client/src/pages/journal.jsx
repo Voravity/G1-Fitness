@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import logo from "../assets/G1Logo.png";
 import "../styles/journal.css";
 
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+
 function Journal() {
   const { state } = useLocation();
   const routine = state?.routine;
@@ -17,7 +20,20 @@ function Journal() {
   const [loading, setLoading] = useState(true);
   const [hasLoadedEntry, setHasLoadedEntry] = useState(false); // to track if we have loaded an entry
   const [journalEntries, setJournalEntries] = useState([]); // to store journal history
-  const [hovered, setHovered] = useState(null); // to track hovered entry to dispPlay edit btn
+  const [hovered, setHovered] = useState(null); // to track hovered entry to display edit btn
+  const [selectedDate, setSelectedDate] = useState(null);
+  const filteredEntries = selectedDate
+  ? journalEntries.filter((entry) =>
+      entry.date_created.startsWith(selectedDate.toISOString().split("T")[0])
+    )
+  : journalEntries;
+
+  
+  // Choose date of workout
+  const [entryDate, setEntryDate] = useState(() => {
+    const today = new Date().toISOString().split("T")[0];
+    return today;
+  });
 
   useEffect(() => {
     const forceNew = state?.forceNew; //checks if creating a new entry
@@ -125,6 +141,7 @@ function Journal() {
         routine_id: routine?.id ?? null,
         entry_name: entryName,
         mood,
+        date: entryDate,
         data: exerciseData,
       }),
     })
@@ -160,40 +177,57 @@ function Journal() {
 
         <hr className="divider" />
 
-        {journalEntries.length === 0 ? (
-          <p>You haven't created any journal entries yet.</p>
-        ) : (
-          <div className="journal-history">
-            {journalEntries.map((entry) => (
-              <div
-                key={entry.id}
-                className="routine-card"
-                onMouseEnter={() => setHovered(entry.id)}
-                onMouseLeave={() => setHovered(null)}
-              >
-                <h3>{entry.entry_name}</h3>
-                <p>Routine: {entry.routine_name}</p>
-                <p>Mood: {entry.mood}</p>
-                <p>Date: {entry.date_created}</p>
-
-                {hovered === entry.id && (
-                  <button
-                    className="edit-button"
-                    onClick={() =>
-                      navigate("/journal", { state: { entryId: entry.id } })
-                    }
-                  >
-                    Edit
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-
         <Link to="/workout-library">
           <button className="nav-button">New Entry</button>
         </Link>
+        
+        <div className="calendar-view">
+  <h3>Select a Day to View Logged Entries</h3>
+
+  <Calendar
+    onChange={setSelectedDate}
+    value={selectedDate}
+  />
+
+  {selectedDate && (
+    <p>
+      Showing entries for:{" "}
+      <strong>{selectedDate.toISOString().split("T")[0]}</strong>
+    </p>
+  )}
+</div>
+
+{filteredEntries.length === 0 ? (
+  <p>No entries found for the selected date.</p>
+) : (
+  <div className="journal-history">
+    {filteredEntries.map((entry) => (
+      <div
+        key={entry.id}
+        className="routine-card"
+        onMouseEnter={() => setHovered(entry.id)}
+        onMouseLeave={() => setHovered(null)}
+      >
+        <h3>{entry.entry_name}</h3>
+        <p>Routine: {entry.routine_name}</p>
+        <p>Mood: {entry.mood}</p>
+        <p>Date: {entry.date_created}</p>
+
+        {hovered === entry.id && (
+          <button
+            className="edit-button"
+            onClick={() =>
+              navigate("/journal", { state: { entryId: entry.id } })
+            }
+          >
+            Edit
+          </button>
+        )}
+      </div>
+    ))}
+  </div>
+)}
+
       </div>
     );
   }
@@ -210,7 +244,7 @@ function Journal() {
       </div>
 
       <hr className="divider" />
-
+      
       <p className="description">
         {entryId ? "Editing entry for:" : "Logging workout:"}{" "}
         <strong>{routineName}</strong>
@@ -236,6 +270,14 @@ function Journal() {
         <option value="Tired">Tired</option>
         <option value="Fail">Fail</option>
       </select>
+
+      <label>Date:</label>
+      <input
+        type="date"
+        className="input-field"
+        value={entryDate}
+        onChange={(e) => setEntryDate(e.target.value)}
+      />
 
       {exerciseData.map((ex, i) => (
         <div key={i} className="exercise-entry">
