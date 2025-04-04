@@ -47,8 +47,8 @@ function HomePage({user, setUser, getUser}) {
       <hr className="divider" />
 
       <div className="button-group">
-        <Link to="/workout-library"><button className="nav-button">Workout Library</button></Link>
         <Link to="/workout-creation"><button className="nav-button">Create a Workout</button></Link>
+        <Link to="/workout-library"><button className="nav-button">Workout Library</button></Link>
         <Link to="/journal"><button className="nav-button">Journal</button></Link>
         <Link to="/about-us"><button className="nav-button">About Us</button></Link>
       </div>
