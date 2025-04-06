@@ -1,0 +1,69 @@
+.icon {
+    margin: 1rem 0 2rem 0;
+  }
+
+   /* GitHub Logo */
+   .github-logo {
+    width: 100px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    filter: drop-shadow(0 0 15px limegreen);
+  }
+  
+  .github-logo:hover {
+    transform: scale(1.1) rotate(2deg);
+  }
+  
+
+  .banana-icon {
+    width: 200px; 
+    filter: drop-shadow(0 0 15px limegreen);
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+  }
+
+  .search-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px; /* spacing between input and button */
+    margin-top: 30px;
+    flex-wrap: wrap;
+  }
+  
+  .search-input {
+    color: limegreen;
+    padding: 16px;
+    width: 100%;
+    max-width: 500px;
+    font-size: 1.2rem;
+    border: 2px solid limegreen;
+    border-radius: 8px;
+    background-color: black;
+    color: limegreen;
+  }
+  
+  .search-input::placeholder {
+    color: limegreen;
+  }
+  
+  .search-button {
+    background-color: black;
+  color: limegreen;
+  border: 2px solid limegreen;
+  padding: 0.75rem 1.5rem;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: limegreen;
+  color: black;
+  transform: scale(1.05);
+  box-shadow: 0 0 8px #00ff00;
+  }
+  

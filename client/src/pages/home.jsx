@@ -5,6 +5,7 @@ import logo from "../assets/G1Logo.png";
 import WorkoutLibrary from "./workoutLibrary"; 
 import WorkoutCreation from "./workoutCreation";
 import Journal from "./journal";
+import Nutrition from "./nutrition";
 import AboutUs from "./aboutUs";
 import Login from "./login";
 import ProtectedRoute from "../components/protectedRoute";
@@ -50,6 +51,7 @@ function HomePage({user, setUser, getUser}) {
         <Link to="/workout-creation"><button className="nav-button">Create a Workout</button></Link>
         <Link to="/workout-library"><button className="nav-button">Workout Library</button></Link>
         <Link to="/journal"><button className="nav-button">Journal</button></Link>
+        <Link to="/nutrition"><button className="nav-button">Nutrition</button></Link>
         <Link to="/about-us"><button className="nav-button">About Us</button></Link>
       </div>
 
@@ -127,6 +129,12 @@ function App() {
         <Route path="/journal" element={
           <ProtectedRoute user={user}>
             <Journal />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/nutrition" element={
+          <ProtectedRoute user={user}>
+            <Nutrition />
           </ProtectedRoute>
         } />
 
