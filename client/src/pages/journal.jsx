@@ -18,15 +18,18 @@ function Journal() {
   const [exerciseData, setExerciseData] = useState([]);
   const [routineName, setRoutineName] = useState("");
   const [loading, setLoading] = useState(true);
-  const [hasLoadedEntry, setHasLoadedEntry] = useState(false); // to track if we have loaded an entry
-  const [journalEntries, setJournalEntries] = useState([]); // to store journal history
-  const [hovered, setHovered] = useState(null); // to track hovered entry to display edit btn
+  const [hasLoadedEntry, setHasLoadedEntry] = useState(false);
+  const [journalEntries, setJournalEntries] = useState([]);
+  const [hovered, setHovered] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [expandedExercise, setExpandedExercise] = useState(null);
+  const [setData, setSetData] = useState({});
+
   const filteredEntries = selectedDate
-  ? journalEntries.filter((entry) =>
-      entry.date_created.startsWith(selectedDate.toISOString().split("T")[0])
-    )
-  : journalEntries;
+    ? journalEntries.filter((entry) =>
+        entry.date_created.startsWith(selectedDate.toISOString().split("T")[0])
+      )
+    : journalEntries;
 
   
   // Choose date of workout
@@ -36,7 +39,7 @@ function Journal() {
   });
 
   useEffect(() => {
-    const forceNew = state?.forceNew; //checks if creating a new entry
+    const forceNew = state?.forceNew;
 
     if (routine?.id && routine.exercises && forceNew) {
       const defaultData = routine.exercises.map((name) => ({
@@ -45,9 +48,18 @@ function Journal() {
         reps: "",
         weight: "",
       }));
+      const defaultSetData = {};
+      routine.exercises.forEach((name) => {
+        defaultSetData[name] = [
+          { set: 1, reps: "", weight: "", complete: false },
+          { set: 2, reps: "", weight: "", complete: false },
+          { set: 3, reps: "", weight: "", complete: false },
+        ];
+      });
       setExerciseData(defaultData);
+      setSetData(defaultSetData);
       setRoutineName(routine.name);
-      setHasLoadedEntry(true); 
+      setHasLoadedEntry(true);
       setLoading(false);
       return;
     }
@@ -70,10 +82,10 @@ function Journal() {
               reps: "",
               weight: "",
             }));
-            setExerciseData(defaultData);                               //plenty of AI use here
+            setExerciseData(defaultData);
           }
           setRoutineName(routine.name);
-          setHasLoadedEntry(true); 
+          setHasLoadedEntry(true);
           setLoading(false);
         })
         .catch((err) => {
@@ -94,7 +106,7 @@ function Journal() {
           setMood(entry.mood);
           setExerciseData(entry.data);
           setRoutineName(entry.routine_name);
-          setHasLoadedEntry(true); 
+          setHasLoadedEntry(true);
           setLoading(false);
         })
         .catch((err) => {
@@ -123,7 +135,45 @@ function Journal() {
     const updated = [...exerciseData];
     updated[index][field] = value;
     setExerciseData(updated);
+
+    // If user changed the number of sets in main table, update setData, make sure that if people decide to increase sets to not clear table
+    if (field === "sets") {
+      const exerciseName = updated[index].name;
+      const newSetCount = parseInt(value) || 0;
+    
+      setSetData((prev) => {
+        const current = prev[exerciseName] || [];
+        const updatedSets = [];
+    
+        for (let i = 0; i < newSetCount; i++) {
+          updatedSets.push(
+            current[i] || {
+              set: i + 1,
+              reps: "",
+              weight: "",
+              complete: false,
+            }
+          );
+        }
+    
+        return { ...prev, [exerciseName]: updatedSets };
+      });
+    }
+    
   }
+
+  const toggleSetDetails = (exerciseName) => {
+    setExpandedExercise((prev) => (prev === exerciseName ? null : exerciseName));
+  };
+
+  const handleSetDetailChange = (exercise, setIndex, field, value) => {
+    const updated = { ...setData };
+    if (!updated[exercise]) return;
+    updated[exercise][setIndex][field] =
+      field === "complete" ? value.target.checked : value;
+    setSetData(updated);
+  };
+  
 
   function handleSave() {
     const method = entryId ? "PUT" : "POST";
@@ -135,7 +185,7 @@ function Journal() {
       method,
       credentials: "include",
       headers: {
-        "Content-Type": "application/json",               //AI use here
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         routine_id: routine?.id ?? null,
@@ -161,6 +211,20 @@ function Journal() {
       });
   }
 
+  //Functions for Main Table to get Rep range and Weight Range
+  function getRepRange(sets) {
+    const reps = sets.map((s) => parseInt(s.reps)).filter((r) => !isNaN(r));
+    if (reps.length === 0) return "-";
+    return `${Math.min(...reps)} - ${Math.max(...reps)}`;
+  }
+  
+  function getWeightRange(sets) {
+    const weights = sets.map((s) => parseFloat(s.weight)).filter((w) => !isNaN(w));
+    if (weights.length === 0) return "-";
+    return `${Math.min(...weights)} - ${Math.max(...weights)}`;
+  }
+  
+
   if (loading) return <p>Loading journal...</p>;
 
   //  loads journals by default
@@ -182,52 +246,41 @@ function Journal() {
         </Link>
         
         <div className="calendar-view">
-  <h3>Select a Day to View Logged Entries</h3>
-
-  <Calendar
-    onChange={setSelectedDate}
-    value={selectedDate}
-  />
-
-  {selectedDate && (
-    <p>
-      Showing entries for:{" "}
-      <strong>{selectedDate.toISOString().split("T")[0]}</strong>
-    </p>
-  )}
-</div>
-
-{filteredEntries.length === 0 ? (
-  <p>No entries found for the selected date.</p>
-) : (
-  <div className="journal-history">
-    {filteredEntries.map((entry) => (
-      <div
-        key={entry.id}
-        className="routine-card"
-        onMouseEnter={() => setHovered(entry.id)}
-        onMouseLeave={() => setHovered(null)}
-      >
-        <h3>{entry.entry_name}</h3>
-        <p>Routine: {entry.routine_name}</p>
-        <p>Mood: {entry.mood}</p>
-        <p>Date: {entry.date_created}</p>
-
-        {hovered === entry.id && (
-          <button
-            className="edit-button"
-            onClick={() =>
-              navigate("/journal", { state: { entryId: entry.id } })
-            }
-          >
-            Edit
-          </button>
+          <h3>Select a Day to View Logged Entries</h3>
+          <Calendar onChange={setSelectedDate} value={selectedDate} />
+          {selectedDate && (
+            <p>
+              Showing entries for: <strong>{selectedDate.toISOString().split("T")[0]}</strong>
+            </p>
+          )}
+        </div>
+        {filteredEntries.length === 0 ? (
+          <p>No entries found for the selected date.</p>
+        ) : (
+          <div className="journal-history">
+            {filteredEntries.map((entry) => (
+              <div
+                key={entry.id}
+                className="routine-card"
+                onMouseEnter={() => setHovered(entry.id)}
+                onMouseLeave={() => setHovered(null)}
+              >
+                <h3>{entry.entry_name}</h3>
+                <p>Routine: {entry.routine_name}</p>
+                <p>Mood: {entry.mood}</p>
+                <p>Date: {entry.date_created}</p>
+                {hovered === entry.id && (
+                  <button
+                    className="edit-button"
+                    onClick={() => navigate("/journal", { state: { entryId: entry.id } })}
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
         )}
-      </div>
-    ))}
-  </div>
-)}
-
       </div>
     );
   }
@@ -248,8 +301,7 @@ function Journal() {
       <hr className="divider" />
       
       <p className="description">
-        {entryId ? "Editing entry for:" : "Logging workout:"}{" "}
-        <strong>{routineName}</strong>
+        {entryId ? "Editing entry for:" : "Logging workout:"} <strong>{routineName}</strong>
       </p>
 
       <input
@@ -268,7 +320,7 @@ function Journal() {
       >
         <option value="Great">Great</option>
         <option value="Alright">Alright</option>
-        <option value="Neutral">Neutral</option>   
+        <option value="Neutral">Neutral</option>
         <option value="Tired">Tired</option>
         <option value="Fail">Fail</option>
       </select>
@@ -286,51 +338,91 @@ function Journal() {
           <tr>
             <th>Exercise</th>
             <th>Sets</th>
-            <th>Reps</th>
-            <th>Weight</th>
+            <th>Rep Range</th>
+            <th>Weight Range</th>
           </tr>
         </thead>
 
         <tbody>
           {exerciseData.map((ex, i) => (
-            <tr key={i}>
-              <td>{ex.name}</td>
-
-              <td>
-              <input
-                type="number"
-                placeholder="Sets"
-                value={ex.sets}
-                min="0"
-                onChange={(e) => handleChange(i, "sets", e.target.value)}
-                className="table-inputs"
-              />
-              </td>
-
-              <td>
-                <input
-                  type="number"
-                  placeholder="Reps"
-                  Value={ex.reps}
-                  min="0"
-                  onChange={(e) => handleChange(i, "reps", e.target.value)}
-                  className="table-inputs"
-                />
-              </td>
-
-              <td>
-                <input
-                  type="number"
-                  placeholder="Weight"
-                  step="10"
-                  min="0"
-                  Value={ex.weight}
-                  onChange={(e) => handleChange(i, "weight", e.target.value)}
-                  className="table-inputs"
-                />
-              </td>
+            <>
+              <tr key={i} style={{ cursor: "pointer" }} onClick={() => toggleSetDetails(ex.name)}>
+                <td>{ex.name}</td>
+                <td>
+                  <input
+                    type="number"
+                    placeholder="3"
+                    value={ex.sets}
+                    min="0"
+                    onChange={(e) => {
+                      const val = Math.max(0, Number(e.target.value));
+                      handleChange(i, "sets", val);
+                    }}
+                    
+                    className="table-inputs"
+                  />
+                </td>
+                <td>{setData[ex.name] ? getRepRange(setData[ex.name]) : "-"}</td>
+                <td>{setData[ex.name] ? getWeightRange(setData[ex.name]) : "-"}</td>
+              </tr>
               
-            </tr>
+              {/* Show set details if the exercise is expanded: Subtable */}
+              {expandedExercise === ex.name && setData[ex.name] && (
+                <tr>
+                  <td colSpan="4">
+                    <table className="entry-table">
+                      <thead>
+                        <tr>
+                          <th>Set</th>
+                          <th>Reps</th>
+                          <th>Weight</th>
+                          <th>Completed</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {setData[ex.name].map((set, idx) => (
+                          <tr key={idx}>
+                            <td>{set.set}</td>
+                            <td>
+                              <input
+                                type="number"
+                                min="0"
+                                value={set.reps}
+                                onChange={(e) => {
+                                  const val = Math.max(0, Number(e.target.value));
+                                  handleSetDetailChange(ex.name, idx, "reps", val);
+                                }}                                
+                                className="table-inputs"
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                min="0"
+                                step="5"
+                                value={set.weight}
+                                onChange={(e) => {
+                                  const val = Math.max(0, Number(e.target.value));
+                                  handleSetDetailChange(ex.name, idx, "weight", val);
+                                }}                                
+                                className="table-inputs"
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="checkbox"
+                                checked={set.complete}
+                                onChange={(e) => handleSetDetailChange(ex.name, idx, "complete", e)}
+                              />
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              )}
+            </>
           ))}
         </tbody>
       </table>
