@@ -354,6 +354,7 @@ function Journal() {
                     placeholder="3"
                     value={ex.sets}
                     min="0"
+                    onClick={(e) => e.stopPropagation()}
                     onChange={(e) => {
                       const val = Math.max(0, Number(e.target.value));
                       handleChange(i, "sets", val);
@@ -362,8 +363,12 @@ function Journal() {
                     className="table-inputs"
                   />
                 </td>
-                <td>{setData[ex.name] ? getRepRange(setData[ex.name]) : "-"}</td>
-                <td>{setData[ex.name] ? getWeightRange(setData[ex.name]) : "-"}</td>
+                <td>
+                  {setData[ex.name] ? getRepRange(setData[ex.name]) : " - "}
+                </td>
+                <td>
+                  {setData[ex.name] ? getWeightRange(setData[ex.name]) : " - "}
+                </td>
               </tr>
               
               {/* Show set details if the exercise is expanded: Sub-table */}
