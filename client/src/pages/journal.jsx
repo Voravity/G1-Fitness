@@ -366,7 +366,7 @@ function Journal() {
                 <td>{setData[ex.name] ? getWeightRange(setData[ex.name]) : "-"}</td>
               </tr>
               
-              {/* Show set details if the exercise is expanded: Subtable */}
+              {/* Show set details if the exercise is expanded: Sub-table */}
               {expandedExercise === ex.name && setData[ex.name] && (
                 <tr>
                   <td colSpan="4">
@@ -411,6 +411,7 @@ function Journal() {
                             <td>
                               <input
                                 type="checkbox"
+                                className="checkbox"
                                 checked={set.complete}
                                 onChange={(e) => handleSetDetailChange(ex.name, idx, "complete", e)}
                               />

@@ -86,7 +86,6 @@
   z-index: 1;
 }
 
-
 .table-inputs {
   width: 80%;
   margin: 0 auto;
@@ -106,5 +105,10 @@
   outline: none;
 }
 
-
+.entry-table{
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-align: center;
+  width: 80%;
+}
 
