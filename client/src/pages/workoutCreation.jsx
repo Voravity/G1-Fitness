@@ -39,6 +39,26 @@ function WorkoutCreation() {
         w.category === item.category
     );
   }
+
+  //Reorder Handlers
+  function handleMoveUp(index) {
+    if (index === 0) return;
+    setWorkoutPlan((prev) => {
+      const updated = [...prev];
+      [updated[index - 1], updated[index]] = [updated[index], updated[index - 1]];
+      return updated;
+    });
+  }
+  
+  function handleMoveDown(index) {
+    if (index === workoutPlan.length - 1) return;
+    setWorkoutPlan((prev) => {
+      const updated = [...prev];
+      [updated[index], updated[index + 1]] = [updated[index + 1], updated[index]];
+      return updated;
+    });
+  }
+  
   
   // Toggle exercise checkbox
   function handleCheckboxChange(subcategory, exercise) {
@@ -207,7 +227,7 @@ function WorkoutCreation() {
                     <th>#</th>
                     <th>Muscle Group</th>
                     <th>Exercise</th>
-                    <th>Action</th>
+                    <th>Action (Move or Remove)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -217,7 +237,9 @@ function WorkoutCreation() {
                       <td>{item.subcategory} - {item.category}</td>
                       <td>{item.exercise}</td>
                       <td>
-                        <button className="remove-button" onClick={() => handleRemove(index)}>Remove</button>
+                        <button className="reorder-button" onClick={() => handleMoveUp(index)}>↑</button>
+                        <button className="reorder-button" onClick={() => handleMoveDown(index)}>↓</button>
+                        <button className="remove-button" onClick={() => handleRemove(index)}></button>
                       </td>
                     </tr>
                   ))}

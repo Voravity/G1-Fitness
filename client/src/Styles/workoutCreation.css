@@ -103,8 +103,25 @@
   margin-bottom: 0.5rem;
 }
 
+
+.reorder-button {
+  margin-left: 3px;
+  padding: 0.4rem 0.75rem;
+  background-color: limegreen;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.reorder-button:hover {
+  background-color: #045c04;
+  box-shadow: 0 0 6px #00ff00;
+  color: black;
+}
+
 /* Remove Button */
 .remove-button {
+  margin-left: 5px;
   background-color: transparent;
   color: red;
   border: 1px solid red;

@@ -26,6 +26,27 @@ function WorkoutLibrary() {
   const toggleExpand = (index) => {
     setExpandedId((prev) => (prev === index ? null : index));
   };
+/* check the backend on this if youd like
+  function handleDeleteWorkout(workoutId, workoutName) {
+    const confirmDelete = window.confirm(`Are you sure you want to delete routine "${workoutName}"?`);
+    if (!confirmDelete) return;
+  
+    fetch(`http://localhost:8080/api/user/workouts/${workoutId}`, {
+      method: "DELETE",
+      credentials: "include",
+    })
+    //remove the deleted workout
+      .then((res) => {
+        if (!res.ok) throw new Error("Delete failed");
+        setRoutines((prev) => prev.filter((r) => r.id !== workoutId));
+      })
+      .catch((err) => {
+        console.error("Error deleting workout:", err);
+        alert("Failed to delete workout.");
+      });
+  }
+  */
+
 
   return (
     <div className="container">
@@ -76,6 +97,14 @@ function WorkoutLibrary() {
                   >
                     <button className="nav-button">Log Entry</button>
                   </Link>
+                  {/* check backend on this
+                  <button
+                    className="nav-button delete-button"
+                    onClick={() => handleDeleteWorkout(routine.id, routine.name)}
+                  >
+                    Delete Routine
+                  </button>
+                  */}
                 </div>
               )}
             </div>
