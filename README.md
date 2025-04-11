@@ -41,7 +41,7 @@
     npm install
 
     # Environment Setup
-    # NOTE: FOR UCF GRADER, TO MAKE IT EASIER TO GRADE FOLLOW THESE INSTRUCTIONS (recommended):
+    **NOTE: FOR UCF GRADER, TO MAKE IT EASIER TO GRADE FOLLOW THESE INSTRUCTIONS (recommended):**
     - Create a .env file in the server folder and write the following lines:
     
     PORT=8080
@@ -55,7 +55,7 @@
     - Go to server folder, then auth folder, in authRoutes and authPassport comment out the code for github and facebook. 
     - Theres already a comment like /*TO COMMENT ALL DELETE ->*/ just delete the */ to comment all the relevant code.
 
-    # Otherwise follow below:
+    **Otherwise follow below:**
     Create a .env file in the server folder and write the following lines:
 
     PORT=8080
