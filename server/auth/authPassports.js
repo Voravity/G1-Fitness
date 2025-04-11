@@ -28,6 +28,8 @@ passport.use(new GoogleStrategy({
   return done(null, profile);
 }));
 
+
+/*TO COMMENT ALL DELETE ->*/
 // GitHub
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
@@ -68,6 +70,8 @@ passport.use(new FacebookStrategy({
 
   return done(null, profile);
 }));
+/*<- DELETE TO COMMENT ALL*/
+
 
 // Session handlers
 passport.serializeUser((user, done) => done(null, user));

@@ -17,6 +17,7 @@ router.get("/google/callback",
   }
 );
 
+/*TO COMMENT ALL DELETE -> */
 // 🔹 GitHub Routes
 router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
 router.get("/github/callback",
@@ -44,6 +45,7 @@ router.get("/facebook/callback",
     `);
   }
 );
+/* <- DELETE TO COMMENT ALL*/
 
 // 🔸 Logout + User Info
 router.get("/logout", (req, res) => {

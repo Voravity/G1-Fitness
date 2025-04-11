@@ -41,8 +41,22 @@
     npm install
 
     # Environment Setup
-    # NOTE: we may have pushed our own .env in the repo. this is incase issues with client id or keys arise so the project is still deployable in one way. Otherwise follow below:
-    Create a .env file in the server folder:
+    # NOTE: FOR UCF GRADER, TO MAKE IT EASIER TO GRADE FOLLOW THESE INSTRUCTIONS (recommended):
+    - Create a .env file in the server folder and write the following lines:
+    
+    PORT=8080
+    
+    GOOGLE_CLIENT_ID=your-google-client-id 
+
+    GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+    SESSION_SECRET=super-secret-session-string (input a string)
+
+    - Go to server folder, then auth folder, in authRoutes and authPassport comment out the code for github and facebook. 
+    - Theres already a comment like /*TO COMMENT ALL DELETE ->*/ just delete the */ to comment all the relevant code.
+
+    # Otherwise follow below:
+    Create a .env file in the server folder and write the following lines:
 
     PORT=8080
 
