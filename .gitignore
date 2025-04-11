@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 # Environment file
-.env
+*.env
 
 # SQLite Database files
 *.db
