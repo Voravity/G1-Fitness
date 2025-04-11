@@ -1,22 +1,9 @@
-
-/* 
-    Using better-sqlite3 for easier coding instead of sequelize
-    
-    EXPLANATION:
-    sequelize lets you define your database structure using JavaScript instead of SQL.
-
-    better-sqlite3 lets you write your own SQL queries in SQL language.
-
- */
-
 import Database from "better-sqlite3";
 
-//Makes a connection to database file named G1.db; it will let js code talk to it.
+//makes a connection to database file named G1.db
 const db = new Database("G1.db");  
 
-// Create a users table if it doesn't exist
-// ** In Sqlite TEXT is just a very big string so can be used here
-// ** Executes runs the the SQL written
+// create a users table if  doesn't exist
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
@@ -26,8 +13,8 @@ db.exec(`
   )
 `);
 
-/* Creating data table for all exercises */
-// Muscle groups
+
+// muscle groups
 db.exec(`
   CREATE TABLE IF NOT EXISTS muscle_groups (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,7 +23,7 @@ db.exec(`
   )
 `);
   
-// Exercises
+// exercises
 db.exec(`
   CREATE TABLE IF NOT EXISTS exercises (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,8 +33,7 @@ db.exec(`
   )
 `);
 
-/* Creating data table for Saved Workouts */
-// Workouts
+// workouts
 db.exec(`
   CREATE TABLE IF NOT EXISTS workouts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,7 +43,7 @@ db.exec(`
   )
 `);
 
-// Workout Exercises
+// workout exercises
 db.exec(`
   CREATE TABLE IF NOT EXISTS workout_exercises (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

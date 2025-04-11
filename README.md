@@ -41,21 +41,22 @@
     npm install
 
     # Environment Setup
+    # NOTE: we may have pushed our own .env in the repo. this is incase issues with client id or keys arise so the project is still deployable in one way. Otherwise follow below:
     Create a .env file in the server folder or use the one we provide if having issues:
 
     PORT=8080
 
-    GOOGLE_CLIENT_ID=your-google-client-id ** OR ours: 118698488121-lste8tas2u9tgq2p7qqrttt7ua3hf29p.apps.googleusercontent.com **
+    GOOGLE_CLIENT_ID=your-google-client-id **OR ours: 118698488121-lste8tas2u9tgq2p7qqrttt7ua3hf29p.apps.googleusercontent.com**
 
-    GOOGLE_CLIENT_SECRET=your-google-client-secret ** OR ours: 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 **
+    GOOGLE_CLIENT_SECRET=your-google-client-secret **OR ours: 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**
 
-    GITHUB_CLIENT_ID=your-github-client-id ** OR ours: Ov23ctwroROaKf3ggb6F
+    GITHUB_CLIENT_ID=your-github-client-id **OR ours: Ov23ctwroROaKf3ggb6F**
 
-    GITHUB_CLIENT_SECRET=your-github-client-secret ** OR ours: a696e97f7b403e1ebbc543e12a23503e5da92eca **
+    GITHUB_CLIENT_SECRET=your-github-client-secret **OR ours: a696e97f7b403e1ebbc543e12a23503e5da92eca**
 
-    FACEBOOK_APP_ID=your-facebook-app-id ** OR ours: 1940265243467908
+    FACEBOOK_APP_ID=your-facebook-app-id **OR ours: 1940265243467908**
     
-    FACEBOOK_APP_SECRET=your-facebook-app-secret ** OR ours: 361ebaa0a723eafaab2a51f3f2beb3b9 **
+    FACEBOOK_APP_SECRET=your-facebook-app-secret **OR ours: 361ebaa0a723eafaab2a51f3f2beb3b9**
 
     SESSION_SECRET=super-secret-session-string (usually a long string)
 
@@ -64,8 +65,9 @@
     npm run seed 
 
     This will populate the Database Muscle Groups and Exercises
+    
 
-    # Start The Server
+    # Start The Server      (you may start two terminals, one for /server, one for /client)
     In terminal do:
     npm run start 
 
@@ -85,3 +87,14 @@
 
 - You must run both the backend and frontend servers at the same time for the app to work.
 
+##   ********* AI USAGE ********
+
+- AIs used: ChatGPT 4o and 4o mini
+
+- If we ran into a problems we couldn't debug or were having problems with we would give the AI our newly written code and ask it to assist us fixing it or finding the root cause of the problem.
+
+- AI mostly used to debug but also used for syntaxing and combining functions/actions to different points (like front end of a page to a server app.get or post call, or handle functions)
+
+- Pages affected: server.js, journal.jsx (useEffect, handle functions and syntaxing, data relations, debugging), workoutCreation.jsx (handle functions syntax, debugging)
+
+- Writer of this section does not allow ChatGPT to save chats, but prompts I used were frequently selections of code throwing errors in the terminal upon running, asking AI to find and break down the cause of the issue and provide explained remedials. Other times I asked AI to provide skeleton for functionalities I described or asked AI to explain processes or concepts in the programming task at hand in that moment.
