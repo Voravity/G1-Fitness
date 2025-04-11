@@ -20,7 +20,7 @@
 - Oauth: Google, Facebook, Github
 
 ## Database
-- SQLite via better-sqlite3
+- SQLite
 
 
 **Prerequisites**
